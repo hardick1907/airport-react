@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './Pages/Hero'
 import Lenis from 'lenis'
+import Footer from './components/Footer'
 
 
 
@@ -22,6 +23,7 @@ const App = () => {
     <>
     <Navbar />
     <Hero />
+    <Footer />
     </>
   )
 }

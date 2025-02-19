@@ -142,7 +142,7 @@ const menuItems = [
     return (
       <nav
         className={`fixed top-0 left-0 w-full z-50 p-5 flex flex-col items-center sm:flex-row sm:justify-between transition-all duration-300 ${
-          isScrolled ? "bg-white/60 backdrop-blur-md shadow-md" : "bg-white"
+          isScrolled ? "bg-white/60 backdrop-blur-xs shadow-md" : "bg-white"
         }`}
       >
         <div className="flex items-center">

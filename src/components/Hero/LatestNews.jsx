@@ -13,7 +13,7 @@ const LatestNews = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { 
     once: true,
-    amount: 0.4
+    amount: 0.6
   });
 
   const slides = [
@@ -23,7 +23,6 @@ const LatestNews = () => {
     { id: 4, title: "Breaking News 4", image: fourth },
     { id: 5, title: "Breaking News 5", image: fifth },
   ];
-
 
   const newsList = [
     { id: 1, title: "Technology advances in AI sector", time: "2 hours ago" },
@@ -95,8 +94,32 @@ const LatestNews = () => {
     }
   };
 
+  const titleVariants = {
+    hidden: { opacity: 0, y: -120 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const paraVariants = {
+    hidden: { opacity: 0, x: -90 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        duration: 1.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <div>
+    <div className='bg-gradient-to-t from-[#F3F6FD] to-[#E0E7FF]'>
       <motion.section
         ref={ref}
         initial="hidden"
@@ -104,16 +127,26 @@ const LatestNews = () => {
         variants={containerVariants}
         className="max-w-7xl mx-auto px-4 py-16"
       >
-        <motion.h2 
-          variants={containerVariants}
-          className="text-5xl font-bold mb-15 text-center underline underline-offset-8"
+<motion.h2 
+  variants={titleVariants} 
+  className="text-5xl font-bold mb-1 text-center text-[#1E3A8A] relative"
+>
+  In Focus
+  <span className="absolute top-13 left-1/2 transform -translate-x-1/2 w-xs h-0.5 bg-[#1E3A8A]"></span>
+</motion.h2>
+
+
+
+        <motion.p
+          variants={paraVariants}
+          className="text-lg mb-10 text-center text-[#1E3A8A]"
         >
-          In Focus
-        </motion.h2>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis nihil error temporibus
+        </motion.p>
         
         <div className="grid md:grid-cols-2 gap-8">
           {/* Image Slider */}
-          <div className="relative overflow-hidden rounded-lg h-[340px] mt-5 shadow-xl">
+          <div className="relative overflow-hidden rounded-lg h-[340px] mt-5 shadow-2xl">
             <motion.div
               key={currentSlide}
               variants={slideVariants}
@@ -126,6 +159,7 @@ const LatestNews = () => {
                 src={slides[currentSlide].image}
                 alt={slides[currentSlide].title}
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
                 <h3 className="text-white text-xl font-semibold">
@@ -135,6 +169,7 @@ const LatestNews = () => {
             </motion.div>
             
             <button
+            aria-label="Previous Slide"
               onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
               className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 p-2 rounded-full backdrop-blur-sm transition-colors"
             >
@@ -142,6 +177,7 @@ const LatestNews = () => {
             </button>
             
             <button
+            aria-label="Next Slide"
               onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
               className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 p-2 rounded-full backdrop-blur-sm transition-colors"
             >
@@ -152,6 +188,7 @@ const LatestNews = () => {
           {/* News List with staged animations */}
           <div className="relative h-[370px] overflow-hidden">
             <motion.div
+              
               animate={scrollControls}
               initial={{ y: 0 }}
               className="space-y-4"
@@ -161,9 +198,9 @@ const LatestNews = () => {
                 <motion.div
                   key={news.id}
                   variants={listItemVariants}
-                  className="p-4 bg-white rounded-lg shadow hover:shadow-md border-3 border-cyan-100 transition-shadow cursor-pointer"
+                  className="p-4 bg-white rounded-lg shadow-lg hover:shadow-xl border-l-4 border-[#1E3A8A] transition-shadow cursor-pointer"
                 >
-                  <h3 className="font-semibold text-lg">{news.title}</h3>
+                  <h3 className="font-semibold text-lg text-[#1E3A8A]">{news.title}</h3>
                   <p className="text-gray-500 text-sm">{news.time}</p>
                 </motion.div>
               ))}
@@ -173,15 +210,27 @@ const LatestNews = () => {
                 <motion.div
                   key={`duplicate-${news.id}`}
                   variants={listItemVariants}
-                  className="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer"
+                  className="p-4 bg-white rounded-lg shadow-lg hover:shadow-xl border-l-4 border-[#1E3A8A] transition-shadow cursor-pointer"
                 >
-                  <h3 className="font-semibold text-lg">{news.title}</h3>
+                  <h3 className="font-semibold text-lg text-[#1E3A8A]">{news.title}</h3>
                   <p className="text-gray-500 text-sm">{news.time}</p>
                 </motion.div>
               ))}
             </motion.div>
           </div>
         </div>
+
+        {/* View All News Button */}
+        <motion.div
+          variants={paraVariants}
+          className="flex justify-center mt-10"
+        >
+          <button
+            className="px-6 py-3 bg-[#1E3A8A] text-white rounded-lg shadow-lg hover:bg-[#1E3A8A]/90 transition-colors"
+          >
+            View All News
+          </button>
+        </motion.div>
       </motion.section>
     </div>
   );
